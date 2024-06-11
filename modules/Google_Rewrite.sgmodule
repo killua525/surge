@@ -1,0 +1,11 @@
+#!name=Google重定向
+#!desc=CN谷歌重定向
+
+[General]
+force-http-engine-hosts = %APPEND% *.google.cn
+[URL Rewrite]
+^https?:\/\/www\.g(oogle)?\.cn https://www.google.com 307
+
+
+[MITM]
+hostname = %APPEND% www.g.cn, www.google.cn
