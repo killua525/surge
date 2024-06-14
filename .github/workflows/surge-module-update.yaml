@@ -47,6 +47,7 @@ jobs:
           mv ruleset/*  modules
           jsnames=$(grep path= modules/* | awk -F "script-path=" '{print $2}'| awk -F "," '{print $1 }' |sort | uniq)
           for jsfile in ${jsnames}; do curl -sSL ${jsfile} > js_new/`basename ${jsfile}`; done
+          for jsfile in ${jsnames}; do sed -i "s|${jsfile}|https://raw.githubusercontent.com/killua525/surge/main/js/`basename ${jsfile}`|g" modules/*; done
           mv js_new/* js
           rm -rf ruleset js_new
           if [ -n "$(git status --porcelain)" ]; then
