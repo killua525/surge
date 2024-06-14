@@ -2,7 +2,7 @@ name: Sync rules for Surge
 on:
   workflow_dispatch:
   schedule:
-    - cron: "30 22 * * *"
+    - cron: "30 23 * * *"
   push:
     branches:
       - master
@@ -112,8 +112,19 @@ jobs:
       - name: Git push assets to "main" branch
         run: |
           mv ruleset/* rules
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add rules
-          git commit -m "${{ env.RELEASE_NAME }}"
-          git push
+          rm -rf ruleset
+          if [ -n "$(git status --porcelain)" ]; then
+            git config --local user.name "github-actions[bot]"
+            git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add rules
+            git commit -m "${{ env.RELEASE_NAME }}"
+            git push
+            echo "::set-output name=committed::true"
+          else
+            echo "::set-output name=committed::false"
+          fi
+
+
+
+
+
