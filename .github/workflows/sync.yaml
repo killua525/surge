@@ -104,9 +104,9 @@ jobs:
             git add rules
             git commit -m "${{ env.RELEASE_NAME }}"
             git push
-            echo "::set-output name=committed::true"
+            echo "name=committed::true" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=committed::false"
+            echo "name=committed::false" >> $GITHUB_OUTPUT
           fi
 
 
