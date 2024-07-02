@@ -26,6 +26,7 @@ jobs:
           echo "spotify_list=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Spotify/Spotify.list" >> $GITHUB_ENV
           echo "claude_list=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Claude/Claude.list" >> $GITHUB_ENV
           echo "openai_list=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/OpenAI/OpenAI.list" >> $GITHUB_ENV
+          echo "reddit_list=https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Surge/Reddit/Reddit.list" >> $GITHUB_ENV
         shell: bash
 
       - name: Checkout the default branch
@@ -88,6 +89,10 @@ jobs:
       - name: Generate openai.list file
         run: |
           curl -sSL ${openai_list} > ruleset/OpenAI.list
+          
+      - name: Generate Reddit.list file
+        run: |
+          curl -sSL ${reddit_list} > ruleset/Reddit.list
 
       - name: Git push assets to "main" branch
         run: |
